@@ -1,32 +1,65 @@
-# React + TypeScript + Vite
+Smart Attendance Prediction · Recovery Planning · Semester Tracking
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A mobile-first attendance planning web application that helps students understand their current attendance, plan future absences, and estimate whether they can reach their required attendance target before the semester's teaching period ends.
 
-Currently, two official plugins are available:
+Built with **React, TypeScript, and Vite**, the application combines attendance calculations, semester-aware forecasting, and an interactive daily attendance timeline in a clean, premium black interface.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 📊 Attendance Overview
+- Calculate current attendance percentage from attended and total periods.
+- View attended periods, total periods, missed periods, and target attendance.
+- Track progress toward the required attendance threshold.
 
-## Expanding the Oxlint configuration
+### 🎯 Attendance Recovery Plan
+- Calculate the additional periods required to reach an attendance target.
+- Estimate the number of class days needed using the configured timetable.
+- Display the expected recovery date when achievable.
+- Identify period and class-day shortfalls when the target may not be reachable before teaching ends.
+- Project attendance at the end of the teaching period.
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+### 📅 Semester-Aware Forecasting
+- Configure semester commencement, last teaching day, and semester end date.
+- Track calendar days and teaching days remaining.
+- Account for the weekly timetable and holidays when calculating future attendance.
+- Keep teaching days separate from examination and preparation periods.
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
+### 🗓️ Daily Attendance Forecast
+- View projected attendance chronologically, one date at a time.
+- Plan future attendance, leave, partial attendance, and holidays.
+- Recalculate subsequent attendance projections when a planned status changes.
+- Distinguish normal class days, planned leave, and holidays through clear status indicators.
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+### 📱 Mobile-First Experience
+- Responsive layouts for mobile phones, tablets, and desktop screens.
+- Touch-friendly attendance controls and swipe interactions.
+- Compact attendance cards and readable daily forecasts.
+- Premium black theme with emerald-green accents.
+
+### 💾 Attendance Planning and Persistence
+- Edit attendance baseline values and target percentages.
+- Save timetable and semester settings using the application's existing storage mechanism.
+- Retain supported planning preferences between visits on the same browser and device.
+
+---
+
+## 🛠️ Tech Stack
+
+| Technology | Purpose |
+|---|---|
+| React | Component-based user interface |
+| TypeScript | Type-safe application development |
+| Vite | Development server and production build |
+| CSS | Responsive styling and UI design |
+| Browser storage | Persist supported settings and planning data |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) installed.
+-
