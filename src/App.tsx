@@ -88,27 +88,20 @@ function loadStoredInputs(): AttendanceInputs | null {
 }
 
 export default function App() {
-  const [savedInputs, setSavedInputs] = useState<AttendanceInputs | null>(loadStoredInputs);
-  const [isEditing, setIsEditing] = useState<boolean>(() => !loadStoredInputs());
+  const [savedInputs, setSavedInputs] = useState<AttendanceInputs | null>(null);
+  const [isEditing, setIsEditing] = useState<boolean>(true);
 
   // Setup form fields
-  const [totalInput, setTotalInput] = useState<string>(() =>
-    savedInputs ? String(savedInputs.totalSlots) : ''
-  );
-  const [attendedInput, setAttendedInput] = useState<string>(() =>
-    savedInputs ? String(savedInputs.attendedSlots) : ''
-  );
-  const [targetInput, setTargetInput] = useState<string>(() =>
-    savedInputs ? String(savedInputs.targetPercentage) : '75'
-  );
-  const [startDateInput, setStartDateInput] = useState<string>(() =>
-    savedInputs?.startDate || formatDateKey(new Date())
-  );
+  const [totalInput, setTotalInput] = useState<string>('');
+  const [attendedInput, setAttendedInput] = useState<string>('');
+  const [targetInput, setTargetInput] = useState<string>('75');
+  const [startDateInput, setStartDateInput] = useState<string>(() => formatDateKey(new Date()));
 
   // Timetable configuration
-  const [timetable, setTimetable] = useState<WeeklyTimetable>(() =>
-    savedInputs?.timetable || DEFAULT_TIMETABLE
-  );
+  const [timetable, setTimetable] = useState<WeeklyTimetable>(() => {
+    const stored = loadStoredInputs();
+    return stored?.timetable || DEFAULT_TIMETABLE;
+  });
   const [showTimetableSettings, setShowTimetableSettings] = useState<boolean>(false);
 
   // Form error
@@ -135,12 +128,10 @@ export default function App() {
     return computePlannerSummary(savedInputs);
   }, [savedInputs]);
 
-  // Sync to localStorage
+  // Sync to localStorage when an active plan exists
   useEffect(() => {
     if (savedInputs) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(savedInputs));
-    } else {
-      localStorage.removeItem(STORAGE_KEY);
     }
   }, [savedInputs]);
 
@@ -159,15 +150,16 @@ export default function App() {
       return;
     }
 
+    const stored = loadStoredInputs();
     const newInputs: AttendanceInputs = {
       totalSlots: total,
       attendedSlots: attended,
       targetPercentage: target,
       startDate: startDateInput || formatDateKey(new Date()),
       timetable,
-      holidays: savedInputs?.holidays || [],
+      holidays: savedInputs?.holidays || stored?.holidays || [],
       overrides: savedInputs?.overrides || {},
-      semester: savedInputs?.semester || DEFAULT_SEMESTER_CONFIG,
+      semester: savedInputs?.semester || stored?.semester || DEFAULT_SEMESTER_CONFIG,
       saturdayConfigured: true,
     };
 
